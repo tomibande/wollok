@@ -1,1 +1,0 @@
-// Configuración de la conexión a la base de datos (host, usuario, contraseña, nombre de la DB).
