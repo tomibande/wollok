@@ -1,4 +1,7 @@
 import wollok.game.*
+import jugador.*
+import interfaz.*
+import habitaciones.*
 
 object juego {
     var property habitacionActual = habitacion1

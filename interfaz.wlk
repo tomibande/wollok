@@ -1,4 +1,5 @@
 import wollok.game.*
+import jugador.*
 
 object interfaz {
     method position() = game.at(0, 11)

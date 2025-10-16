@@ -1,4 +1,6 @@
 import wollok.game.*
+import elementos.*
+
 class Habitacion {
     const property puertas = []
     const property trampas = []

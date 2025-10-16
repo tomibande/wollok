@@ -1,4 +1,6 @@
 import wollok.game.*
+import juego.*
+import interfaz.*
 
 class Puerta {
     var property position
