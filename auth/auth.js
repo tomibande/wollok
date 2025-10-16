@@ -1,1 +1,0 @@
-// Lógica de autenticación (login, logout, registro, verificación de usuario).
