@@ -1,1 +1,0 @@
-// Para registrar eventos o errores en la aplicación (logs).
