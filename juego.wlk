@@ -1,0 +1,73 @@
+import wollok.game.*
+
+object juego {
+    var property habitacionActual = habitacion1
+
+    method iniciar() {
+        game.title("Laberinto Tramposo")
+        game.width(15)
+        game.height(12)
+        game.cellSize(50)
+
+        self.configurarTeclas()
+        self.cargarHabitacion(habitacion1)
+
+        game.addVisual(jugador)
+        game.addVisual(interfaz)
+
+        game.start()
+    }
+
+    method configurarTeclas() {
+        keyboard.up().onPressDo({ jugador.moverArriba() })
+        keyboard.down().onPressDo({ jugador.moverAbajo() })
+        keyboard.left().onPressDo({ jugador.moverIzquierda() })
+        keyboard.right().onPressDo({ jugador.moverDerecha() })
+        keyboard.r().onPressDo({ self.reiniciarJuego() })
+    }
+
+    method cargarHabitacion(habitacion) {
+        self.limpiarHabitacion()
+        habitacionActual = habitacion
+        habitacion.cargar()
+        jugador.volverAlInicio()
+    }
+
+    method limpiarHabitacion() {
+        game.allVisuals().forEach({ visual =>
+            if (visual != jugador && visual != interfaz) {
+                game.removeVisual(visual)
+            }
+        })
+    }
+
+    method reiniciarJuego() {
+        jugador.reiniciar()
+        self.generarNuevoLaberinto()
+        self.cargarHabitacion(habitacion1)
+        mensajes.mostrar("¡Juego reiniciado!")
+    }
+
+    method generarNuevoLaberinto() {
+        habitacion1.regenerar()
+        habitacion2.regenerar()
+        habitacion3.regenerar()
+        habitacion4.regenerar()
+        habitacionSalida.regenerar()
+    }
+
+    method cambiarHabitacion(nuevaHabitacion) {
+        mensajes.mostrar("Entrando a nueva habitación...")
+        game.schedule(500, { self.cargarHabitacion(nuevaHabitacion) })
+    }
+
+    method verificarVictoria() {
+        mensajes.mostrarVictoria()
+        game.schedule(3000, { game.stop() })
+    }
+
+    method verificarDerrota() {
+        mensajes.mostrarGameOver()
+        game.schedule(2000, { self.reiniciarJuego() })
+    }
+}
