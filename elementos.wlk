@@ -1,5 +1,4 @@
 import wollok.game.*
-import juego.*
 import interfaz.*
 
 class Puerta {
@@ -11,7 +10,7 @@ class Puerta {
 
     method colisionarCon(jugador) {
         if (estaAbierta) {
-            juego.cambiarHabitacion(destino)
+            jugador.cambiarHabitacion(destino)
         } else {
             if (jugador.usarLlave()) {
                 self.abrir()
@@ -35,7 +34,7 @@ class PuertaSalida {
     method image() = "salida.png"
 
     method colisionarCon(jugador) {
-        juego.verificarVictoria()
+        jugador.ganar()
     }
 
     method regenerarPosicion() {

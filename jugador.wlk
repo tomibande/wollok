@@ -90,4 +90,12 @@ object jugador {
     method colisionarCon(otro) {
         // El jugador no hace nada cuando colisiona
     }
+
+    method cambiarHabitacion(nuevaHabitacion) {
+        juego.cambiarHabitacion(nuevaHabitacion)
+    }
+
+    method ganar() {
+        juego.verificarVictoria()
+    }
 }

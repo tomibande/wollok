@@ -36,7 +36,7 @@ object habitacion1 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
     }
 
     method regenerar() {
@@ -71,7 +71,7 @@ object habitacion2 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
     }
 
     method regenerar() {
@@ -107,7 +107,7 @@ object habitacion3 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
     }
 
     method regenerar() {
@@ -142,7 +142,7 @@ object habitacion4 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
     }
 
     method regenerar() {
