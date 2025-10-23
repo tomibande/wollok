@@ -1,0 +1,9 @@
+{
+  "name": "laberinto-tramposo",
+  "version": "1.0.0",
+  "description": "Juego de laberinto con trampas en Wollok",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"Build successful\" && exit 0"
+  }
+}
