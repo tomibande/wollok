@@ -1,23 +1,6 @@
 import wollok.game.*
 import elementos.*
 
-class Habitacion {
-    const property puertas = []
-    const property trampas = []
-    const property objetos = []
-
-    method cargar() {
-        puertas.forEach({ puerta => game.addVisual(puerta) })
-        trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => game.addVisual(objeto) })
-    }
-
-    method regenerar() {
-        puertas.forEach({ puerta => puerta.regenerarPosicion() })
-        trampas.forEach({ trampa => trampa.regenerarPosicion() })
-        objetos.forEach({ objeto => objeto.regenerarPosicion() })
-    }
-}
 object habitacion1 {
     const puertas = [
         new Puerta(position = game.at(7, 6), destino = habitacion2, estaAbierta = true),
@@ -36,20 +19,24 @@ object habitacion1 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
     }
 
     method regenerar() {
         puertas.clear()
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion2, estaAbierta = true))
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion3, estaAbierta = false))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion2, estaAbierta = true))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion3, estaAbierta = false))
 
         trampas.clear()
-        3.times({ i => trampas.add(new Trampa(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)))) })
+        3.times({ i => trampas.add(new Trampa(position = self.posicionAleatoria())) })
 
         objetos.clear()
-        objetos.add(new Llave(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
-        objetos.add(new PocionVida(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
+        objetos.add(new Llave(position = self.posicionAleatoria()))
+        objetos.add(new PocionVida(position = self.posicionAleatoria()))
+    }
+
+    method posicionAleatoria() {
+        return game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(10).truncate(0))
     }
 }
 
@@ -71,20 +58,24 @@ object habitacion2 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
     }
 
     method regenerar() {
         puertas.clear()
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion1, estaAbierta = true))
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion4, estaAbierta = false))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion1, estaAbierta = true))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion4, estaAbierta = false))
 
         trampas.clear()
-        3.times({ i => trampas.add(new Trampa(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)))) })
+        3.times({ i => trampas.add(new Trampa(position = self.posicionAleatoria())) })
 
         objetos.clear()
-        objetos.add(new Llave(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
-        objetos.add(new PocionVida(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
+        objetos.add(new Llave(position = self.posicionAleatoria()))
+        objetos.add(new PocionVida(position = self.posicionAleatoria()))
+    }
+
+    method posicionAleatoria() {
+        return game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(10).truncate(0))
     }
 }
 
@@ -107,20 +98,24 @@ object habitacion3 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
     }
 
     method regenerar() {
         puertas.clear()
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion1, estaAbierta = true))
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacionSalida, estaAbierta = false))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion1, estaAbierta = true))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacionSalida, estaAbierta = false))
 
         trampas.clear()
-        4.times({ i => trampas.add(new Trampa(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)))) })
+        4.times({ i => trampas.add(new Trampa(position = self.posicionAleatoria())) })
 
         objetos.clear()
-        objetos.add(new Llave(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
-        objetos.add(new PocionVida(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
+        objetos.add(new Llave(position = self.posicionAleatoria()))
+        objetos.add(new PocionVida(position = self.posicionAleatoria()))
+    }
+
+    method posicionAleatoria() {
+        return game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(10).truncate(0))
     }
 }
 
@@ -142,20 +137,24 @@ object habitacion4 {
     method cargar() {
         puertas.forEach({ puerta => game.addVisual(puerta) })
         trampas.forEach({ trampa => game.addVisual(trampa) })
-        objetos.forEach({ objeto => if (!objeto.recogido) game.addVisual(objeto) })
+        objetos.forEach({ objeto => if (!objeto.recogido()) game.addVisual(objeto) })
     }
 
     method regenerar() {
         puertas.clear()
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacion2, estaAbierta = true))
-        puertas.add(new Puerta(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)), destino = habitacionSalida, estaAbierta = false))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacion2, estaAbierta = true))
+        puertas.add(new Puerta(position = self.posicionAleatoria(), destino = habitacionSalida, estaAbierta = false))
 
         trampas.clear()
-        3.times({ i => trampas.add(new Trampa(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)))) })
+        3.times({ i => trampas.add(new Trampa(position = self.posicionAleatoria())) })
 
         objetos.clear()
-        objetos.add(new Llave(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
-        objetos.add(new Llave(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
+        objetos.add(new Llave(position = self.posicionAleatoria()))
+        objetos.add(new Llave(position = self.posicionAleatoria()))
+    }
+
+    method posicionAleatoria() {
+        return game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(10).truncate(0))
     }
 }
 
@@ -178,9 +177,13 @@ object habitacionSalida {
 
     method regenerar() {
         puertas.clear()
-        puertas.add(new PuertaSalida(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))))
+        puertas.add(new PuertaSalida(position = self.posicionAleatoria()))
 
         trampas.clear()
-        4.times({ i => trampas.add(new Trampa(position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0)))) })
+        4.times({ i => trampas.add(new Trampa(position = self.posicionAleatoria())) })
+    }
+
+    method posicionAleatoria() {
+        return game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(10).truncate(0))
     }
 }
