@@ -1,2 +1,9 @@
 node_modules/
 .env
+*.wlk.bak
+*.wpgm.bak
+.DS_Store
+bin/
+.classpath
+.project
+.settings/
