@@ -1,29 +1,29 @@
 import wollok.game.*
 import interfaz.*
-import juego.*
 
 object jugador {
     var property position = game.at(1, 10)
     var property vidas = 3
     var property llaves = 0
+    var property juegoActivo = true
     const posicionInicial = game.at(1, 10)
 
     method image() = "jugador.png"
 
     method moverArriba() {
-        self.moverA(position.up(1))
+        if (juegoActivo) self.moverA(position.up(1))
     }
 
     method moverAbajo() {
-        self.moverA(position.down(1))
+        if (juegoActivo) self.moverA(position.down(1))
     }
 
     method moverIzquierda() {
-        self.moverA(position.left(1))
+        if (juegoActivo) self.moverA(position.left(1))
     }
 
     method moverDerecha() {
-        self.moverA(position.right(1))
+        if (juegoActivo) self.moverA(position.right(1))
     }
 
     method moverA(nuevaPosicion) {
@@ -35,24 +35,29 @@ object jugador {
 
     method posicionValida(pos) {
         return pos.x().between(0, game.width() - 1) &&
-               pos.y().between(0, game.height() - 1)
+               pos.y().between(0, game.height() - 2)
     }
 
     method verificarColisiones() {
         const objetosEnPosicion = game.getObjectsIn(position)
         objetosEnPosicion.forEach({ objeto =>
-            if (objeto != self && objeto != interfaz) {
+            if (objeto != self && objeto != interfaz && objeto.respondsTo("colisionarCon")) {
                 objeto.colisionarCon(self)
             }
         })
     }
 
     method perderVida() {
+        if (!juegoActivo) return
+        
         vidas = (vidas - 1).max(0)
         mensajes.mostrar("¡Perdiste una vida! Vidas: " + vidas)
 
         if (vidas == 0) {
-            juego.verificarDerrota()
+            juegoActivo = false
+            game.schedule(2000, { 
+                self.verificarDerrota()
+            })
         } else {
             self.volverAlInicio()
         }
@@ -85,17 +90,21 @@ object jugador {
         vidas = 3
         llaves = 0
         position = posicionInicial
+        juegoActivo = true
     }
 
     method colisionarCon(otro) {
         // El jugador no hace nada cuando colisiona
     }
 
-    method cambiarHabitacion(nuevaHabitacion) {
-        juego.cambiarHabitacion(nuevaHabitacion)
-    }
+    method cambiarHabitacion(nuevaHabitacion)
 
     method ganar() {
-        juego.verificarVictoria()
+        if (!juegoActivo) return
+        juegoActivo = false
+        self.verificarVictoria()
     }
+
+    method verificarVictoria()
+    method verificarDerrota()
 }
