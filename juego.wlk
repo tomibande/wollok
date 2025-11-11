@@ -35,15 +35,11 @@ object juego {
         habitacion.cargar()
         jugador.volverAlInicio()
     }
-
     method limpiarHabitacion() {
-        game.allVisuals().forEach({ visual =>
-            if (visual != jugador && visual != interfaz && visual != mensajes) {
-                game.removeVisual(visual)
-            }
-        })
+        game.allVisuals().asList().forEach({ v => game.removeVisual(v) })
+        game.addVisual(jugador)
+        game.addVisual(interfaz)
     }
-
     method reiniciarJuego() {
         mensajes.ocultar()
         jugador.reiniciar()
@@ -71,6 +67,12 @@ object juego {
             self.reiniciarJuego()
         })
     }
+
+    method verificarDerrota() {
+        mensajes.mostrarGameOver()
+        game.schedule(2000, { self.reiniciarJuego() })
+    }
+}
 
     method verificarDerrota() {
         mensajes.mostrarGameOver()
