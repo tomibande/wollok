@@ -22,10 +22,6 @@ class Puerta {
         estaAbierta = true
         mensajes.mostrar("¡Puerta abierta!")
     }
-
-    method regenerarPosicion() {
-        position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))
-    }
 }
 
 class PuertaSalida {
@@ -36,10 +32,6 @@ class PuertaSalida {
     method colisionarCon(jugador) {
         jugador.ganar()
     }
-
-    method regenerarPosicion() {
-        position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))
-    }
 }
 
 class Trampa {
@@ -49,10 +41,6 @@ class Trampa {
 
     method colisionarCon(jugador) {
         jugador.perderVida()
-    }
-
-    method regenerarPosicion() {
-        position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))
     }
 }
 
@@ -70,8 +58,7 @@ class Llave {
         }
     }
 
-    method regenerarPosicion() {
-        position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))
+    method regenerar() {
         recogido = false
     }
 }
@@ -90,8 +77,7 @@ class PocionVida {
         }
     }
 
-    method regenerarPosicion() {
-        position = game.at(1.randomUpTo(14).truncate(0), 1.randomUpTo(11).truncate(0))
+    method regenerar() {
         recogido = false
     }
 }
