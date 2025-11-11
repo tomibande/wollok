@@ -41,33 +41,29 @@ object jugador {
     method verificarColisiones() {
         const objetosEnPosicion = game.getObjectsIn(position)
         objetosEnPosicion.forEach({ objeto =>
-            if (objeto != self && objeto != interfaz && objeto.respondsTo("colisionarCon")) {
+            if (objeto != self && objeto.respondsTo("colisionarCon")) {
                 objeto.colisionarCon(self)
             }
         })
     }
 
     method perderVida() {
-        if (!juegoActivo) return
-        
-        vidas = (vidas - 1).max(0)
+        vidas = vidas - 1
         mensajes.mostrar("¡Perdiste una vida! Vidas: " + vidas)
 
-        if (vidas == 0) {
+        if (vidas <= 0) {
+            vidas = 0
             juegoActivo = false
-            game.schedule(2000, { 
-                self.verificarDerrota()
-            })
+            self.verificarDerrota()
         } else {
             self.volverAlInicio()
         }
     }
 
     method ganarVida() {
-        vidas = (vidas + 1).min(5)
+        vidas = if (vidas + 1 > 5) 5 else vidas + 1
         mensajes.mostrar("¡Ganaste una vida! Vidas: " + vidas)
     }
-
     method agarrarLlave() {
         llaves += 1
         mensajes.mostrar("¡Llave obtenida! Llaves: " + llaves)
@@ -96,15 +92,16 @@ object jugador {
     method colisionarCon(otro) {
         // El jugador no hace nada cuando colisiona
     }
-
-    method cambiarHabitacion(nuevaHabitacion)
-
-    method ganar() {
-        if (!juegoActivo) return
-        juegoActivo = false
-        self.verificarVictoria()
+    method cambiarHabitacion(nuevaHabitacion) {
+    
+    }
+  method verificarVictoria() {
+        mensajes.mostrar("¡Ganaste!")
+        // Añadir comportamiento adicional (pantalla final, reiniciar, etc.)
     }
 
-    method verificarVictoria()
-    method verificarDerrota()
+    method verificarDerrota() {
+        mensajes.mostrar("¡Perdiste!")
+        // Añadir comportamiento adicional (pantalla final, reiniciar, etc.)
+    }
 }
