@@ -38,13 +38,14 @@ object juego {
 
     method limpiarHabitacion() {
         game.allVisuals().forEach({ visual =>
-            if (visual != jugador && visual != interfaz) {
+            if (visual != jugador && visual != interfaz && visual != mensajes) {
                 game.removeVisual(visual)
             }
         })
     }
 
     method reiniciarJuego() {
+        mensajes.ocultar()
         jugador.reiniciar()
         self.generarNuevoLaberinto()
         self.cargarHabitacion(habitacion1)
@@ -66,7 +67,9 @@ object juego {
 
     method verificarVictoria() {
         mensajes.mostrarVictoria()
-        game.schedule(3000, { game.stop() })
+        game.schedule(5000, { 
+            self.reiniciarJuego()
+        })
     }
 
     method verificarDerrota() {
